@@ -1,0 +1,5 @@
+rm -f randint.o
+rm -f mainline
+
+nasm -f elf randint.asm
+gcc mainline.c randint.o -o mainline

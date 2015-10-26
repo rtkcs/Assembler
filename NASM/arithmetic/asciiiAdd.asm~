@@ -1,0 +1,30 @@
+;Add 2 integers together in ASCII form
+;
+;
+
+
+segment .data
+       ; initialized data
+       ; 
+       ; when the program is loaded into a memory, all the initialized values are loaded also
+sum_msg		db	'The sum is: ',0
+number1		db	'1234567890'
+number2		db	'9876543210'
+sum			db	'           '0	;
+       
+segment .bss
+       ; unitialized data
+       ; block started by symbol
+       ; the thing stored in the object file is the size of the segment
+segment .text        ; here goeas the executable instructions
+    global _start     ; the global symbol is the name called by execution
+_func:
+    enter n,0   ; save the context and set up the stack, n - number of bytes to be alocated for local variables, 0 - I do not want allocate any temporary workspace
+    push        ; save registers
+       ;
+       ; body of the function
+       ;
+    pop         ; restore registers
+    mov eax,0   ; put the return value into eax register
+    leave       ; inverse of the enter instruction, remove the local workspace from the stack and restore the original context
+    ret         ; return to the caller

@@ -1,0 +1,17 @@
+     1                                  ; This procedure receives 3 integers via the stack.
+     2                                  ; It is called from the C program
+     3                                  ;
+     4                                  ;
+     5                                  
+     6                                  
+     7                                  segment .text
+     8                                  
+     9                                  global test1
+    10                                  
+    11                                  test1:
+    12 00000000 C8000000                	enter 0, 0
+    13 00000004 8B4508                  	mov EAX, [EBP+8]		; get argument 1 - x
+    14 00000007 03450C                  	add EAX, [EBP+12]		; get argument 2 - y
+    15 0000000A 2B4510                  	sub EAX, [EBP+16]		; subtract argument 3
+    16 0000000D C9                      	leave
+    17 0000000E C3                      	ret

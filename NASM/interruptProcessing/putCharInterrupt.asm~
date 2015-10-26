@@ -1,0 +1,62 @@
+;
+; Put character procedure receives the character in AL.
+;
+
+
+segment .data
+
+
+segment .bss
+
+temp_char resb 1
+
+segment .text
+
+global _start
+
+_start:
+    enter 0,0   ; save the context and set up the stack, n - number of bytes to be alocated for local variables, 0 - I do not want allocate any temporary workspace
+    pusha        ; save registers
+
+	mov AL,32
+	call putChar
+	
+	mov AL,33
+	call putChar
+	
+	mov AL,34
+	call putChar    
+
+	mov AL,'A'
+	call putChar
+    
+	mov AL,0x0A
+	call putChar
+	
+    popa         ; restore registers
+;    mov eax,0   ; put the return value into eax register
+    
+    mov eax,1          ; system call ID: sys_exit
+	mov ebx,0          ; exit code 0: no error
+	int 80h            ; system call
+    
+;    leave       ; inverse of the enter instruction, remove the local workspace from the stack and restore the original context
+;    ret         ; return to the caller
+
+
+	
+	
+
+
+
+putChar:
+	pusha
+
+	mov	[temp_char], AL
+	mov	EAX, 4				; 4 = write
+	mov	EBX, 1				; 1 = std out (display)
+	mov ECX, temp_char		; pointer to char buffer
+	mov	EDX, 1				; bytes = 1
+	int	0x80
+	popa
+	ret
